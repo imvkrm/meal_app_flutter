@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meal_app_flutter/dummy_data.dart';
-import 'package:meal_app_flutter/models/meal.dart';
+import '../dummy_data.dart';
+
 
 class MealDetailScreen extends StatelessWidget {
   static const String routeName = '/meal-detail-screen';
@@ -56,6 +56,12 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(selectedMeal.title),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pop(mealId);
+          },
+          child: Icon(Icons.delete),
         ),
         body: SingleChildScrollView(
           child: Column(
