@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
 
-
 class MealDetailScreen extends StatelessWidget {
   static const String routeName = '/meal-detail-screen';
+
+  final Function toggelFavorite;
+  final Function isFavoriteMeal;
+  MealDetailScreen(this.toggelFavorite, this.isFavoriteMeal);
 
   Widget buildSectionTitle(String title, BuildContext context) {
     return Container(
@@ -57,11 +60,17 @@ class MealDetailScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(selectedMeal.title),
         ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop(mealId);
+        //   },
+        //   child: Icon(Icons.delete),
+        // ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pop(mealId);
-          },
-          child: Icon(Icons.delete),
+          onPressed: () => toggelFavorite(mealId),
+          child: isFavoriteMeal(mealId)
+              ? Icon(Icons.star)
+              : Icon(Icons.star_border),
         ),
         body: SingleChildScrollView(
           child: Column(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../dummy_data.dart';
 import '../widgets/meal_item.dart';
 import '../models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const String routeName = '/category-meals-screen';
+
+  final List<Meal> _avalableMeals;
+  CategoryMealsScreen(this._avalableMeals);
 
   @override
   _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
@@ -20,12 +22,12 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     super.initState();
   }
 
-  void _removeMeal(String mealId) {
-    setState(() {
-      print(mealId);
-      displayMeals.removeWhere((element) => element.id == mealId);
-    });
-  }
+  // void _removeMeal(String mealId) {
+  //   setState(() {
+  //     print(mealId);
+  //     displayMeals.removeWhere((element) => element.id == mealId);
+  //   });
+  // }
 
   @override
   void didChangeDependencies() {
@@ -35,7 +37,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
 
       final catId = routeArgus['id'];
       catTitle = routeArgus['title'] as String;
-      displayMeals = DUMMY_MEALS
+      displayMeals = widget._avalableMeals
           .where((meals) => meals.categories.contains(catId))
           .toList();
       _loadedInitData = true;
@@ -60,7 +62,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
             duration: displayMeals[index].duration,
             affordability: displayMeals[index].affordability,
             complexity: displayMeals[index].complexity,
-            removeMeal: _removeMeal, //pass the instance of _removeMeal
+          //  removeMeal: _removeMeal, //pass the instance of _removeMeal
           ),
           itemCount: displayMeals.length,
         ),
